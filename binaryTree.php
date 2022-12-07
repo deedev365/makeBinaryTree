@@ -19,7 +19,7 @@
        Output: [[1],[1,1],[1,2,1],[1,3,3,1]]
 */
 
-class Nums
+class Tree
 {
     public $cases = [
             [
@@ -38,7 +38,7 @@ class Nums
             'level' => 4,
             'expect' => [[1],[1,1],[1,2,1],[1,3,3,1]]
             ],
-        ];
+    ];
     
     public function makeTree(int $nums): array
     {
@@ -76,13 +76,16 @@ class Nums
     {
         foreach($this->cases as $case) {
             $tree = $this->makeTree($case['level']);
-            
+            echo 'Tree level ' . $case['level'];
             if($tree === $case['expect']) {
-                echo 'Tree correct!' . "\n";    
+                echo ' (correct)' . "\n";    
+            } else {
+                echo ' (wrong)' . "\n";
             }
+
             var_dump($tree) . "\n\n";
         }    
     }
 }
-$tree = new Nums();
+$tree = new Tree();
 $tree->check();
