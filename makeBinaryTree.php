@@ -40,50 +40,51 @@ class Tree
             ],
     ];
     
-    public function makeTree(int $nums): array
+    public function makeTree(int $treelevel): array
     {
         $tree = [];
         
-        for ($i = 1; $i <= $nums; $i++) {
+        for ($i = 1; $i <= $treelevel; $i++) {
             if($i == 1) {
                 $tree = [1];
-                $trees[] = $tree;
+                $bigTree[] = $tree;
                 continue;
             }
             
-            $tree2 = [];
+            $treeNew = [];
             foreach($tree as $index => $line) {
-                if(isset($tree2[$index])) { 
-                    $tree2[$index] += $line;
+                if(isset($treeNew[$index])) { 
+                    $treeNew[$index] += $line;
                 } else {
-                    $tree2[$index] = $line;    
+                    $treeNew[$index] = $line;    
                 }
                 
-                if(isset($tree2[$index+1])) { 
-                    $tree2[$index] += $line;
+                if(isset($treeNew[$index+1])) { 
+                    $treeNew[$index] += $line;
                 } else {
-                    $tree2[$index+1] = $line;    
+                    $treeNew[$index+1] = $line;    
                 }
             }
-            $tree = $tree2;
-            $trees[] = $tree2;
+            $tree = $treeNew;
+            $bigTree[] = $treeNew;
         }
         
-        return $trees;
+        return $bigTree;
     }
     
-    public function check()
+    public function check(bool $printTree = true): void
     {
         foreach($this->cases as $case) {
             $tree = $this->makeTree($case['level']);
             echo 'Tree level ' . $case['level'];
-            if($tree === $case['expect']) {
-                echo ' (correct)' . "\n";    
-            } else {
-                echo ' (wrong)' . "\n";
+            
+            echo ($tree === $case['expect']) ? ' (correct)' : ' (wrong)' ;
+            echo "\n";
+            
+            if($printTree) {
+                var_dump($tree) . "\n\n";
             }
-
-            var_dump($tree) . "\n\n";
+                
         }    
     }
 }
